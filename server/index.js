@@ -3,6 +3,7 @@ import cors from "cors";
 import express from "express";
 import cookieParser from "cookie-parser";
 import { connectDB } from "./config/connectDB.js";
+import { authRouter } from "./routes/authRouter.js";
 
 const app = express();
 const PORT = process.env.API_PORT;
@@ -19,6 +20,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 await connectDB();
+
+app.use("/api/auth", authRouter);
 
 app.use("/", (req, res) => {
   return res.status(200).send(`<h1>API IS RUNNING...</h1>`);
