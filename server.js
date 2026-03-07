@@ -17,8 +17,8 @@ const [head, tail] = template.split("<!--ssr-outlet-->");
 
 app.use("/assets", express.static(path.resolve(__dirname, "./dist/assets")));
 
-app.get("*", (req, res) => {
-  const { tree, dehydratedState } = render(req.url);
+app.get("*", async (req, res) => {
+  const { tree, dehydratedState } = await render(req.url);
 
   const { pipe } = renderToPipeableStream(tree, {
     onShellReady() {

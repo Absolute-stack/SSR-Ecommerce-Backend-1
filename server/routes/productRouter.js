@@ -7,12 +7,14 @@ import {
   adminGetProducts,
   getProducts,
   getProductById,
+  getProductFilters,
 } from "../controllers/productController.js";
 import { upload } from "../middleware/multer.js";
 
 export const productRouter = express.Router();
 
 productRouter.get("/all", getProducts);
+productRouter.get("/filters", getProductFilters);
 productRouter.get("/admin/all", adminProtect, adminGetProducts);
 productRouter.post(
   "/create",

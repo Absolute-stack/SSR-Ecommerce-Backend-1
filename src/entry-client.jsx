@@ -8,15 +8,31 @@ import { QueryClientProvider, HydrationBoundary } from "@tanstack/react-query";
 const queryClient = getQueryClient();
 const dehydratedState = window.__REACT_QUERY_STATE__;
 
-hydrateRoot(
-  document.getElementById("root"),
-  <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <HydrationBoundary state={dehydratedState}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </HydrationBoundary>
-    </QueryClientProvider>
-  </StrictMode>,
+async function initAuth() {
+  try {
+    const { me } = await import("./api/auth.js");
+    const { refresh } = await import("./api/auth.js");
+    const { useStore } = await import("./store/store.js");
+    const { setAuthToken } = await import("./lib/axios.js");
+
+    const tokenData = await refresh();
+    setAuthToken(tokenData.accessToken);
+    const user = await me();
+    useStore.getState().setAuth(tokenData.accessToken, user.user);
+  } catch (error) {}
+}
+
+initAuth().finally(() =>
+  hydrateRoot(
+    document.getElementById("root"),
+    <StrictMode>
+      <QueryClientProvider client={queryClient}>
+        <HydrationBoundary state={dehydratedState}>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </HydrationBoundary>
+      </QueryClientProvider>
+    </StrictMode>,
+  ),
 );

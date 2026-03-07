@@ -166,6 +166,53 @@ export async function getMyOrders(req, res) {
   }
 }
 
+export async function getOrderById(req, res) {
+  try {
+    const order = await Order.findById(req.params.id);
+    if (!order)
+      return res.status(400).json({
+        success: false,
+        message: "Order not found",
+      });
+    return res.status(200).json({
+      order,
+      success: true,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+}
+
+export async function updateDeliveryStatus(req, res) {
+  try {
+    const { deliveryStatus } = req.body;
+    const order = await Order.findByIdAndUpdate(
+      req.params.id,
+      { deliveryStatus },
+      { new: true },
+    );
+    if (!order)
+      return res.status(400).json({
+        success: false,
+        message: "Order not found",
+      });
+    return res.status(200).json({
+      order,
+      success: true,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+}
+
 export async function guestOrderLookup(req, res) {
   try {
     const { email, reference } = req.query;

@@ -132,7 +132,8 @@ export async function verifyPayment(req, res) {
     return res.status(200).json({
       orderId,
       success: true,
-      paymentStatus: "paid",
+      paymentStatus: order.paymentStatus,
+      deliveryStatus: order.deliveryStatus,
       paid: order.paymentStatus === "paid",
     });
   } catch (error) {

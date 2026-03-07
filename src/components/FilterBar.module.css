@@ -1,0 +1,59 @@
+.filterBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.search {
+  flex: 1;
+  min-width: 200px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.select {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  background: white;
+}
+
+.priceRange {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.priceInput {
+  width: 90px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.resetBtn {
+  padding: 0.5rem 1rem;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.resetBtn:hover {
+  background: #f0f0f0;
+}
+
+.loading {
+  padding: 1rem;
+  color: #888;
+}

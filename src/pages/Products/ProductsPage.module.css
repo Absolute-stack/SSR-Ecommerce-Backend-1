@@ -1,0 +1,171 @@
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.updating {
+  font-size: 0.875rem;
+  color: #888;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  transition: opacity 0.2s ease;
+}
+
+.empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem;
+  color: #888;
+}
+
+.loadMore {
+  display: block;
+  margin: 2rem auto;
+  padding: 0.75rem 2rem;
+  background: #000;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 4px;
+}
+
+.loadMore:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.end {
+  text-align: center;
+  color: #999;
+  margin-top: 2rem;
+  font-size: 0.875rem;
+}
+
+.loading,
+.error {
+  text-align: center;
+  padding: 4rem;
+}
+
+.card {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.imageLink {
+  display: block;
+  text-decoration: none;
+}
+
+.imageWrapper {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: #f5f5f5;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .image {
+  transform: scale(1.05);
+}
+
+.lowStock {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  background: #e53e3e;
+  color: white;
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.info {
+  padding: 1rem;
+  flex: 1;
+}
+
+.nameLink {
+  text-decoration: none;
+  color: inherit;
+}
+
+.name {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.25rem;
+}
+
+.category {
+  font-size: 0.8rem;
+  color: #888;
+  text-transform: capitalize;
+  margin: 0 0 0.5rem;
+}
+
+.price {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.sizes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0 1rem 0.75rem;
+}
+
+.sizeBtn {
+  padding: 0.25rem 0.75rem;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+  font-size: 0.85rem;
+  border-radius: 4px;
+}
+
+.sizeBtn.selected {
+  border-color: #000;
+  background: #000;
+  color: white;
+}
+
+.addBtn {
+  margin: 0 1rem 1rem;
+  padding: 0.75rem;
+  background: #000;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.addBtn.inCart {
+  background: #38a169;
+}

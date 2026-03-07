@@ -214,11 +214,17 @@ export async function getProducts(req, res) {
       .limit(limitNum + 1)
       .lean();
 
+    console.log("Query params:", req.query);
+    console.log("Filter built:", filter);
     const hasNextPage = products.length > limitNum;
     if (hasNextPage) products.pop();
 
+    const lastProduct = products[products.length - 1];
+
     const nextCursor = hasNextPage
-      ? products[products.length - 1][sortBy]
+      ? sortBy === "createdAt" || sortBy === "updatedAt"
+        ? lastProduct[sortBy].toISOString()
+        : String(lastProduct[sortBy])
       : null;
 
     return res.status(200).json({
@@ -226,6 +232,36 @@ export async function getProducts(req, res) {
       nextCursor,
       hasNextPage,
       success: true,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+}
+
+export async function getProductFilters(req, res) {
+  try {
+    const [categories, priceRange] = await Promise.all([
+      Product.distinct("category", { isActive: true }),
+      Product.aggregate([
+        { $match: { isActive: true } },
+        {
+          $group: {
+            _id: null,
+            minPrice: { $min: "$price" },
+            maxPrice: { $max: "$price" },
+          },
+        },
+      ]),
+    ]);
+
+    return res.status(200).json({
+      categories,
+      minPrice: priceRange?.[0]?.minPrice ?? 0,
+      maxPrice: priceRange?.[0]?.maxPrice ?? 0,
     });
   } catch (error) {
     console.error(error);

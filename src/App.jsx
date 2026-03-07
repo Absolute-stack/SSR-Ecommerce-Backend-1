@@ -1,18 +1,23 @@
-import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import { lazy, Suspense } from "react";
+import { Route, Routes } from "react-router-dom";
+
+const ProductsPage = lazy(() => import("./pages/Products/ProductsPage.jsx"));
 
 function App() {
   return (
-    <>
+    <main>
       <Routes>
-        <Route path="/" element={<div>Home....coming soon</div>} />
-        <Route path="/cart" element={<div>Cart....coming soon</div>} />
+        <Route path="/" element={<div>Home</div>} />
         <Route
-          path="/collections"
-          element={<div>Collections....coming soon</div>}
+          path="/products"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <ProductsPage />
+            </Suspense>
+          }
         />
       </Routes>
-    </>
+    </main>
   );
 }
 
